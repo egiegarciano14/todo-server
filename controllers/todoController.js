@@ -5,35 +5,35 @@ const Todos = db.todos;
 const addTodo = async (req, res) => {
   const todoItem = {
     title: req.body.title,
-    completed: req.body.completed,
   };
 
   const todo = await Todos.create(todoItem);
-  res.status(200).send(todo);
-  // console.log(todo);
+  return res.status(200).send(todo);
 };
 
 const getAllTodo = async (req, res) => {
   const todos = await Todos.findAll();
-  res.status(200).send(todos);
+  return res.status(200).send(todos);
 };
 
 const deleteTodo = async (req, res) => {
   const id = req.params.id;
 
-  const deletedTodo = await Todos.destroy({ where: { id: id } });
+  await Todos.destroy({ where: { id: id } });
 
-  res.status(200).send(`Product id: ${deletedTodo} is deleted!`);
+  return res.status(200).send(`Todo id: ${id} is deleted!`);
 };
 
 const updateStatusTodo = async (req, res) => {
   const id = req.params.id;
-  const status = req.params.status;
+  const status = req.body.completed;
 
   await Todos.update({ completed: status }, { where: { id: id } });
 
-  res.status(200).send(`Product id: ${id} is updated!`);
+  return res.status(200).send(`Todo id: ${id} is updated!`);
 };
+
+// Todo: make fetchAllCompleted to filter only the todo item when staus is completed
 
 module.exports = {
   addTodo,

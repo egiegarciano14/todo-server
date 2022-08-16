@@ -3,10 +3,14 @@ const cors = require('cors');
 const routerTodo = require('./routes/todo');
 
 const app = express();
+// const corsOption = {
+//   origin: ['http://localhost:3000'],
+// };
 
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // routers
 app.use('/api/todos', routerTodo);

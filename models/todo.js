@@ -10,7 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    completed: DataTypes.BOOLEAN,
+    completed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: 0,
+    },
   });
 
   return Todo;
